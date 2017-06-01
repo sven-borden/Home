@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HomeUWP.Models.Terrasse;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,6 +23,8 @@ namespace HomeUWP
     /// </summary>
     public sealed partial class MainPage : Page
     {
+		TerrasseInteraction Terrasse = new TerrasseInteraction();
+
         public MainPage()
         {
             this.InitializeComponent();
