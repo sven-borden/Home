@@ -2,7 +2,7 @@
 
 namespace HomeUWP.Models.Terrasse
 {
-	class Light
+	public class Light
 	{
 
 		#region Color

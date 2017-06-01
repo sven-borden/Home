@@ -12,14 +12,13 @@ namespace HomeUWP.Models.Terrasse
 		private string ip;
 		private string port;
 
-		private Light Led = new Light();
+		public Light Led = new Light();
 
 		public async void SetLights()
 		{
-			string s = Led.Get();
 			return;
 			HttpClient Client = new HttpClient();
-			await Client.SendAsync(new HttpRequestMessage(HttpMethod.Get, $"{ip}/{Led.ToString()}"));
+			await Client.GetAsync($"{ip}:{port}/{Led.Get()}");
 		}
 
 		public TerrasseInteraction() : this("192.168.1.100", "80"){	}

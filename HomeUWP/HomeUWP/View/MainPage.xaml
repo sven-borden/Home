@@ -7,7 +7,17 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    </Grid>
+	<Grid>
+		<Grid.Background>
+			<SolidColorBrush Color="{x:Bind myColorPicker.Color, Mode=OneWay}" />
+		</Grid.Background>
+		<StackPanel>
+			<ColorPicker x:Name="myColorPicker"
+             ColorSpectrumShape="Ring"
+             IsColorPreviewVisible="False"
+             IsColorChannelTextInputVisible="False"
+             IsHexInputVisible="False"/>
+			<Button Content="Set" Click="Button_Click"/>
+		</StackPanel>
+	</Grid>
 </Page>

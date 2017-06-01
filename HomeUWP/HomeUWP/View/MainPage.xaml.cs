@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -29,5 +30,14 @@ namespace HomeUWP
         {
             this.InitializeComponent();
         }
-    }
+
+		private void Button_Click(object sender, RoutedEventArgs e)
+		{
+			Color color = myColorPicker.Color;
+			Terrasse.Led.R = color.R;
+			Terrasse.Led.G = color.G;
+			Terrasse.Led.B = color.B;
+			Terrasse.SetLights();
+		}
+	}
 }
