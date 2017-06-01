@@ -34,6 +34,13 @@ void loop()
             esp.find("blue=");
             int B = ConvertHexaToLum(espread(),esp.read());
             Serial.println(G);
+
+            // make close command
+            String closeCommand = "AT+CIPCLOSE="; 
+            closeCommand+=connectionId; // append connection id
+            closeCommand+="\r\n";
+            
+            sendData(closeCommand,1000,DEBUG); // close connection
         }
     }
 }
@@ -57,4 +64,32 @@ int ConvertHexaToLum(int high, int low)
     {
         value += (low-65);
     }
+}
+
+
+String sendData(String command, const int timeout, boolean debug)
+{
+    String response = "";
+    
+    esp8266.print(command); // send the read character to the esp8266
+    
+    long int time = millis();
+    
+    while( (time+timeout) > millis())
+    {
+      while(esp8266.available())
+      {
+        
+        // The esp has data so display its output to the serial window 
+        char c = esp8266.read(); // read the next character.
+        response+=c;
+      }  
+    }
+    
+    if(debug)
+    {
+      Serial.print(response);
+    }
+    
+    return response;
 }
