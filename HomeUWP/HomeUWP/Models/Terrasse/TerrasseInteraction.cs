@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
+using Windows.Web.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,12 +16,19 @@ namespace HomeUWP.Models.Terrasse
 
 		public async void SetLights()
 		{
-			return;
+			HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Get, new Uri($"http://{ip}/{Led.Get()}"));
 			HttpClient Client = new HttpClient();
-			await Client.GetAsync($"{ip}:{port}/{Led.Get()}");
+			try
+			{
+				await Client.SendRequestAsync(message);
+			}
+			catch(Exception e)
+			{
+
+			}
 		}
 
-		public TerrasseInteraction() : this("192.168.1.100", "80"){	}
+		public TerrasseInteraction() : this("192.168.1.143", "80"){	}
 
 		public TerrasseInteraction(string _ip) : this(_ip, "80"){ }
 
