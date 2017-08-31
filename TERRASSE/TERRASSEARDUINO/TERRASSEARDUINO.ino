@@ -6,12 +6,31 @@
 #define BLUEPIN 3
 
 SoftwareSerial esp8266(8,9);
-
+SoftwareSerial setupSerial(8,9);
 
 
 void setup()
 {
   Serial.begin(9600);
+  setupSerial.begin(115200);
+
+  String response = "";
+  setupSerial.print("AT+CIOBAUD=9600"); // send the read character to the esp8266
+  long int time = millis();
+    
+  while( (time+2000) > millis())
+  {
+    while(setupSerial.available())
+    {  
+      char c = setupSerial.read(); // read the next character.
+      response+=c;
+    }  
+  } 
+  if(DEBUG)
+  {
+    Serial.print(response);
+  }
+  
   esp8266.begin(9600); // your esp's baud rate might be different
   
   pinMode(REDPIN, OUTPUT);
