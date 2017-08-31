@@ -12,31 +12,13 @@ SoftwareSerial setupSerial(8,9);
 void setup()
 {
   Serial.begin(9600);
-  setupSerial.begin(115200);
-
-  String response = "";
-  setupSerial.print("AT+CIOBAUD=9600"); // send the read character to the esp8266
-  long int time = millis();
-    
-  while( (time+2000) > millis())
-  {
-    while(setupSerial.available())
-    {  
-      char c = setupSerial.read(); // read the next character.
-      response+=c;
-    }  
-  } 
-  if(DEBUG)
-  {
-    Serial.print(response);
-  }
-  
-  esp8266.begin(9600); // your esp's baud rate might be different
-  
+  esp8266.begin(115200); // your esp's baud rate might be different
+  sendCommand("AT+CIOBAUD=9600\r\n", 1000, DEBUG);
   pinMode(REDPIN, OUTPUT);
   pinMode(GREENPIN, OUTPUT);
   pinMode(BLUEPIN, OUTPUT);
-   
+  esp8266.begin(9600);
+  delay(1000);
   sendCommand("AT+CWMODE=1\r\n",1000,DEBUG); // configure as access point
   sendCommand("AT+CWJAP=\"P700\",\"SousChefPasteK\"\r\n",3000,DEBUG);
   delay(10000);
